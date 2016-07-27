@@ -1,0 +1,35 @@
+<%= form_for(post) do |f| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= f.radio_button :show_public, true, checked: true  %> Public
+    <%= f.radio_button :show_public, false %> Friends
+  </div>
+
+  <%= f.fields_for :picture do |p|  %>
+  <div class="field">
+    <%= p.label :photo %><br />
+    <%= p.file_field :photo %>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

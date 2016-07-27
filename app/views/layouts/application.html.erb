@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assignment</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+   <p class="notice"><%= notice %></p>
+   <p class="alert"><%= alert %></p>
+
+   <% unless current_user %>
+     <%= link_to 'Sign In',user_session_path%>
+   <% else %>
+      welcome <%= current_user.firstname %> 
+      <%= image_tag current_user.picture.photo.url(:thumb) if current_user.picture.present? %>
+     <%= link_to 'Sign Out',destroy_user_session_path, :method => :delete %>
+   <% end %>
+  <body>
+    <%= yield %>
+  </body>
+</html>
